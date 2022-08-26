@@ -7,6 +7,8 @@ import { AiFillEdit } from "react-icons/ai";
 import Create from "./components/Create";
 import Edit from "./components/Edit";
 
+const url = "https://first-mern-fernando.herokuapp.com";
+
 function App() {
   const [users, setUsers] = useState([]);
 
@@ -17,13 +19,13 @@ function App() {
   const [editID, setEditID] = useState(null);
 
   const getUsers = async () => {
-    const response = await axios.get("http://localhost:3001/getusers");
+    const response = await axios.get(`${url}/getusers`);
     setUsers(response.data);
   };
 
   const createNewUser = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:3001/createuser", {
+    await axios.post(`${url}/createuser`, {
       name,
       job,
       username,
@@ -38,7 +40,7 @@ function App() {
   };
 
   const deleteUser = async (_id) => {
-    const response = await axios.delete(`http://localhost:3001/users/${_id}`);
+    const response = await axios.delete(`${url}/users/${_id}`);
     console.log(response.data);
     getUsers();
   };
@@ -55,14 +57,11 @@ function App() {
   };
 
   const handleUpdate = async (editID) => {
-    const response = await axios.patch(
-      `http://localhost:3001/users/${editID}`,
-      {
-        name,
-        job,
-        username,
-      }
-    );
+    const response = await axios.patch(`${url}/users/${editID}`, {
+      name,
+      job,
+      username,
+    });
     setName("");
     setJob("");
     setUsername("");
